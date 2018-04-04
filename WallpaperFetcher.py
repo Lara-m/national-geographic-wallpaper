@@ -1,11 +1,9 @@
 '''
-	Main Idiot: Lara
+	Who wrote it: Lara
 
-	What the hell am I doing? The previous version didn't work with python 3 which broke my arch. :sniff:
-	So here is the backwarded remake for python 3. Also added a few other apis.
-	Ceebs.
+	usage: python WallPaperFetcher.py {working directort} {source}
 
-	usage: python WallPaperFetcher.py [source]
+	working directory: wspecify where the photo can be saved. Like "/home/randomuser/Pictures/Wallpapers"
 
 	source: 
 	" " - default - national geographics (literally put nothing)
@@ -17,9 +15,6 @@
 	"picsum"
 	"splashbase"
 	"cats"
-
-	## Notes:
-	nasa may take a while to load.
 
 	don't forget to add a 
 '''
@@ -89,9 +84,9 @@ def cats():
 	wall_url = tree.find('data/images/image/url').text
 	return wall_url
 
-def main(source):
+def main(loc, source):
 	# Change this to be custom
-	wall_name = os.getcwd() + '/wallpaper.jpg'
+	wall_name = loc + '/wallpaper.jpg'
 	if source == "nasa":
 		wall_url = nasa()
 	elif source == "gopro":
@@ -112,15 +107,21 @@ def main(source):
 		wall_url = natgeo()
 	# Store the picture 
 	urllib.request.urlretrieve(wall_url, wall_name)
+	print(wall_url)
 	if os.stat(wall_name).st_size < 0:
 		return
 	# Set the picture
-	os.system('gsettings set org.gnome.desktop.background picture-uri "file://' + wall_name + '"')
+	os.system('DISPLAY=:0 gsettings set org.gnome.desktop.background picture-uri "file://' + wall_name + '"')
 	return
 
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
-		blah = sys.argv[1]
+		loc = sys.argv[1]
+		if len(sys.argv) > 2:
+			blah = sys.argv[2]
+		else:
+			blah = ""
+		main(loc, blah)
 	else:
-		blah = ""
-	main(blah)
+		print ("Working directory is empty. Specify.")
+

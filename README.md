@@ -7,7 +7,9 @@
 
 ## Usage
 
-	` python WallPaperFetcher.py {source} `
+` python WallPaperFetcher.py {working directort} {source} `
+
+working directory: specify where the photo can be saved. Full path. Like "/home/randomuser/Pictures/Wallpapers"
 
 source: 
 > " " - default - national geographics (literally put nothing)
@@ -32,23 +34,25 @@ source:
 
 ## Bckstory
 
-Main Idiot: Lara
+Who wrote it: Lara_m 
 
-What the hell am I doing? The previous version didn't work with python 3 which broke my arch (with my help, ofc). :sniff:
+Where you got it from: https://github.com/Lara-m/national-geographic-wallpaper
 
-So here is the backwarded remake for python 3. Also added a few other apis. and removed whatever I couldn't be bother to use css selectors for (Sorry Lorenzo!)
-Ceebs.
+What it is based on: https://github.com/atareao/national-geographic-wallpaper
 
+What the hell am I doing? The previous version didn't work with python 3 which broke my arch (with my help, ofc). :sniff: So here is the backwarded remake for python 3. Also added a few other apis. and removed whatever I couldn't be bothered to use css selectors for. (Sorry Lorenzo!)
 
 ## Notes
 
 nasa may take a while to load. Or even fail on occassions. Gotta retry.
 
-Works in current direcory. So if it doesn't have permission to write the image there and then, it will fail.
-
 Let me if anything went too bad.
-
 
 ## Extra stuff
 
-Add the following to whatever scheduler you've got:
+[Use this guide for systemd scheduling]
+(https://major.io/2015/02/11/rotate-gnome-3s-wallpaper-systemd-user-units-timers/)
+
+And just use something like this in service:
+
+` ExecStart=/usr/bin/python /home/randomuser/NGW/WallPaperFetcher.py /home/randomuser/Pictures/Wallpapers cats `
